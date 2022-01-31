@@ -1,4 +1,4 @@
-# TaskPlanning
+# Task Planning
 This is the code for task planning designed in PDDL 
 
 If you want to run task planning, please run Task_planner.py
