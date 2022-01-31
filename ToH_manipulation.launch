@@ -1,0 +1,41 @@
+<launch>
+
+	<arg name="domain_path"	default="$(find try)/common/PDDL/generated_d.pddl" />
+	<arg name="problem_path" default="$(find try)/common/PDDL/generated_p.pddl" />
+
+	<!-- knowledge base -->
+	<node name="rosplan_knowledge_base" pkg="rosplan_knowledge_base" type="knowledgeBase" respawn="false" output="screen">
+		<param name="domain_path" value="$(find try)/common/PDDL/generated_d.pddl" />
+		<param name="problem_path" value="$(find try)/common/PDDL/generated_p.pddl" />
+		<param name="use_unknowns" value="false" />
+	</node>
+
+
+        <!-- planning -->
+	<!--<include file="$(find rosplan_planning_system)/launch/includes/rosplan_planner_interfaces.launch"> -->
+	<include file="$(find rosplan_planning_system)/launch/includes/rosplan_planner_interfaces.launch">
+		<arg name="use_problem_topic"    value="false" />
+		<arg name="planner_topic"        value="planner_output" />
+		<arg name="domain_path"          value="$(find try)/common/PDDL/generated_d.pddl" />
+		<arg name="problem_path"         value="$(find try)/common/PDDL/generated_p.pddl" />
+		<arg name="data_path"            value="$(find try)/common/PDDL/" />
+		<arg name="planner_command"     value="timeout 10 rosrun ffha ffha -o DOMAIN -f PROBLEM" />
+	</include>
+
+	<!-- plan parsing -->
+	<node name="rosplan_parsing_interface" pkg="rosplan_planning_system" type="pddl_simple_plan_parser" respawn="false" output="screen">
+		<param name="knowledge_base" value="rosplan_knowledge_base" />
+		<param name="planner_topic"  value="/rosplan_planner_interface/planner_output" />
+		<param name="plan_topic"     value="complete_plan" />
+	</node>
+
+  
+	<!-- plan dispatching -->
+	<node name="rosplan_plan_dispatcher" pkg="rosplan_planning_system" type="pddl_simple_plan_dispatcher" respawn="false" output="screen">
+		<param name="knowledge_base"        value="rosplan_knowledge_base" />
+		<param name="plan_topic"            value="/rosplan_parsing_interface/complete_plan" />
+		<param name="action_dispatch_topic" value="action_dispatch" />
+		<param name="action_feedback_topic" value="action_feedback" />
+	</node> 
+
+</launch>
