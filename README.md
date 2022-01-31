@@ -1,4 +1,4 @@
-# Task Planning
+# Task Planning for Robot Manipulation 
 This is the code for task planning designed in PDDL 
 
 If you want to run task planning, please run Task_planner.py
