@@ -15,5 +15,6 @@ If you want to run task planning, please run Task_planner.py
 You can generate problem file by running problem_generator.py. The example of problem file is shown in generate_p.pddl.
 
 You can generate domain file by running domain_generator.py. The instance of domain file is shown in generate_d.pddl.
+
 The instance of obtained a task plan is depicted in plan.pddl 
 
