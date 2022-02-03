@@ -18,3 +18,4 @@ You can generate domain file by running domain_generator.py. The instance of dom
 
 The instance of obtained a task plan is depicted in plan.pddl 
 
+The code is explained here https://www.notion.so/Task-Planning-For-Stacking-Manipulation-Problem-2d50c0327f554d12983ab44591a39173.
